@@ -14,7 +14,8 @@ export class App extends Component {
       errorWrning: '',
       errorShow: false,
       weatherBackend: [],//07
-      weatherApi: []
+      weatherApi: [],
+      movieApi: []
     }
   }
 
@@ -28,19 +29,23 @@ export class App extends Component {
       console.log(location)
       console.log(response.data)
 
-      let lockationShow = response.data[0];
-      // let cityName = lockationShow.display_name.split(',')[0];
+
+
       // let weather = await axios.get(`http://localhost:3001/weather?searchQuery=${cityName}&lon=${lockationShow.lon}&lot=${lockationShow.lot}`)//07
 
-
+      let lockationShow = response.data[0];
       let weather2 = await axios.get(`http://localhost:3001/weather2?lat=${lockationShow.lat}&lon=${lockationShow.lon}`)
+
+      let cityName = lockationShow.display_name.split(',')[0];
+      let movie = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=94244dbb1b056aa2e7a1b54cf7a87581&query=${cityName}`)
 
 
       this.setState({
         lockationShow: response.data[0],
         displayData: true,
         // weatherBackend: weather.data,//07
-        weatherApi: weather2.data
+        weatherApi: weather2.data,
+        movieApi: movie.data
 
       });
 
@@ -75,7 +80,7 @@ export class App extends Component {
               <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=pk.9e221ab5099baae1056e68315bd3adc4
         &center=${this.state.lockationShow.lat},${this.state.lockationShow.lon}&zoom=15&format=png`} alt="" />
               <Card.Body>
-              <Card.Title>LOCATION INFORMATION</Card.Title>
+                <Card.Title>LOCATION INFORMATION</Card.Title>
                 <Card.Title>{this.state.lockationShow.display_name}</Card.Title>
                 <Card.Text>
                   latitude : {this.state.lockationShow.lat}
@@ -130,6 +135,26 @@ export class App extends Component {
                     </p>
                     <p>
                       💁 {two.description}
+                    </p>
+                  </div>
+
+                )
+              }
+
+              )
+            }
+
+            {
+              this.state.movieApi.map(three => {
+                console.log(three)
+
+                return (
+                  <div>
+                    <p>
+                      {three.Title} 📅
+                    </p>
+                    <p>
+                      💁 {three.description}
                     </p>
                   </div>
 
