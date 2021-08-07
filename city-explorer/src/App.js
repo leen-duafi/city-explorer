@@ -4,10 +4,10 @@ import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Weather from './component/Weather';
 import Movie from './component/Movie'
-import Location from './component/Location';
+// import Location from './component/Location';
 import './index.css';
 
-import { left } from '@popperjs/core';
+// import { left } from '@popperjs/core';
 
 export class App extends Component {
 
